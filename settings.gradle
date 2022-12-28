@@ -5,6 +5,9 @@ pluginManagement {
         mavenCentral()
     }
 }
+
+enableFeaturePreview("VERSION_CATALOGS")
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -16,3 +19,6 @@ rootProject.name = "ChessTimer"
 include ':app'
 include ':data-core'
 include ':domain-core'
+include ':ui-core'
+include ':ui-main'
+include ':ui-timer'

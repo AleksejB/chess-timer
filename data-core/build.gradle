@@ -1,14 +1,17 @@
 plugins {
-    id 'com.android.library'
-    id 'org.jetbrains.kotlin.android'
+    alias(libs.plugins.plugin.android.lib)
+    alias(libs.plugins.plugin.kotlin.android)
 }
 
 android {
-    compileSdk 32
+    compileSdk libs.versions.compileSdk.get() as Integer
 
     defaultConfig {
-        minSdk 26
-        targetSdk 32
+        applicationId libs.versions.applicationId.get() as String
+        minSdk libs.versions.minSdk.get() as Integer
+        targetSdk libs.versions.targetSdk.get() as Integer
+        versionCode libs.versions.appVersionCode.get() as Integer
+        versionName libs.versions.appVersionName.get() as String
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -31,9 +34,8 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.5.1'
-    implementation 'com.google.android.material:material:1.7.0'
+    implementation libs.bundles.androidx
+    
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'

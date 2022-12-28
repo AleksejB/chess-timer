@@ -4,6 +4,7 @@ plugins {
 }
 
 android {
+    namespace 'com.aleksejb.ui.main'
     compileSdk libs.versions.compileSdk.get() as Integer
 
     defaultConfig {
@@ -12,6 +13,7 @@ android {
         targetSdk libs.versions.targetSdk.get() as Integer
         versionCode libs.versions.appVersionCode.get() as Integer
         versionName libs.versions.appVersionName.get() as String
+
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -22,6 +24,12 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion libs.versions.compose.core.get() as String
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -35,6 +43,7 @@ android {
 dependencies {
 
     implementation libs.bundles.androidx
+    implementation libs.bundles.compose.ui
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
