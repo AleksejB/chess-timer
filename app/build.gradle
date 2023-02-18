@@ -46,6 +46,11 @@ android {
 }
 
 dependencies {
+    implementation project(':domain-core')
+    implementation project(':data-core')
+    implementation project(':ui-core')
+    implementation project(':ui-timer')
+
     implementation libs.bundles.androidx
     implementation libs.bundles.compose.ui
 
