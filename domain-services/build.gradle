@@ -4,7 +4,6 @@ plugins {
 }
 
 android {
-    namespace 'com.aleksejb.ui.timer'
     compileSdk libs.versions.compileSdk.get() as Integer
 
     defaultConfig {
@@ -24,12 +23,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    buildFeatures {
-        compose true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion libs.versions.compose.core.get() as String
-    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -37,14 +30,13 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    namespace 'com.aleksejb.ui.timer'
+
+    namespace 'com.aleksejb.domain.services'
 }
 
 dependencies {
-    implementation project(':domain-services')
-
+    api project(':domain-core')
     implementation libs.bundles.androidx
-    implementation libs.bundles.compose.ui
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'

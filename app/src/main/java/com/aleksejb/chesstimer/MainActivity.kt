@@ -16,6 +16,11 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            //app specification:
+            //have a timer
+            //with a background - custom compose shapes
+            // the timer is variable
+
             ChessTimerTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(

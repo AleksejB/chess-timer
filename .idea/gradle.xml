@@ -13,8 +13,8 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/data-core" />
             <option value="$PROJECT_DIR$/domain-core" />
+            <option value="$PROJECT_DIR$/domain-services" />
             <option value="$PROJECT_DIR$/ui-core" />
-            <option value="$PROJECT_DIR$/ui-main" />
             <option value="$PROJECT_DIR$/ui-timer" />
           </set>
         </option>
