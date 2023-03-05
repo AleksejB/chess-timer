@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.plugin.android)
     alias(libs.plugins.plugin.kotlin.android)
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
@@ -43,22 +45,23 @@ android {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
-    namespace 'com.aleksejb.app'
 }
 
 dependencies {
     implementation project(':domain-core')
     implementation project(':data-core')
     implementation project(':ui-core')
-    implementation project(':ui-timer')
+    implementation project(':ui-timer-node')
+    implementation project(':main-root-node')
 
     implementation libs.bundles.androidx
     implementation libs.bundles.compose.ui
 
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
-//    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
-//    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
-//    debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
+
+
+    implementation libs.hilt.integrations.compose
+    implementation libs.hilt.core
+    kapt libs.hilt.compiler
+
+    implementation libs.appyx
 }

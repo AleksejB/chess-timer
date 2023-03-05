@@ -1,13 +1,15 @@
 plugins {
     alias(libs.plugins.plugin.android.lib)
     alias(libs.plugins.plugin.kotlin.android)
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
     compileSdk libs.versions.compileSdk.get() as Integer
 
     defaultConfig {
-        applicationId libs.versions.applicationId.get() as String
+//        applicationId libs.versions.applicationId.get() as String
         minSdk libs.versions.minSdk.get() as Integer
         targetSdk libs.versions.targetSdk.get() as Integer
         versionCode libs.versions.appVersionCode.get() as Integer
@@ -36,8 +38,8 @@ android {
 dependencies {
 
     implementation libs.bundles.androidx
-    
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+
+    implementation libs.hilt.integrations.compose
+    implementation libs.hilt.core
+    kapt libs.hilt.compiler
 }

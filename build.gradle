@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.plugin.android) apply false
     alias(libs.plugins.plugin.kotlin.android) apply false
     alias(libs.plugins.plugin.android.lib) apply false
+    id 'com.google.dagger.hilt.android' version '2.44' apply false
 }
 
 task clean(type: Delete) {

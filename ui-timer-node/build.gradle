@@ -1,8 +1,8 @@
 plugins {
     alias(libs.plugins.plugin.android.lib)
     alias(libs.plugins.plugin.kotlin.android)
-    id 'com.google.dagger.hilt.android'
     id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
@@ -37,10 +37,12 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    namespace 'com.aleksejb.ui.core'
+    namespace 'com.aleksejb.ui.timer.node'
 }
 
 dependencies {
+    implementation project(':domain-services')
+    implementation project(':ui-core')
 
     implementation libs.bundles.androidx
     implementation libs.bundles.compose.ui
@@ -48,4 +50,6 @@ dependencies {
     implementation libs.hilt.integrations.compose
     implementation libs.hilt.core
     kapt libs.hilt.compiler
+
+    implementation libs.appyx
 }

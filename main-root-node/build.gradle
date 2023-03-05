@@ -3,12 +3,14 @@ plugins {
     alias(libs.plugins.plugin.kotlin.android)
     id 'com.google.dagger.hilt.android'
     id 'kotlin-kapt'
+    id 'kotlin-parcelize'
 }
 
 android {
     compileSdk libs.versions.compileSdk.get() as Integer
 
     defaultConfig {
+//        applicationId libs.versions.applicationId.get() as String
         minSdk libs.versions.minSdk.get() as Integer
         targetSdk libs.versions.targetSdk.get() as Integer
         versionCode libs.versions.appVersionCode.get() as Integer
@@ -37,10 +39,11 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    namespace 'com.aleksejb.ui.core'
+    namespace 'com.aleksejb.main.root.node'
 }
 
 dependencies {
+    implementation project(':ui-timer-node')
 
     implementation libs.bundles.androidx
     implementation libs.bundles.compose.ui
@@ -48,4 +51,6 @@ dependencies {
     implementation libs.hilt.integrations.compose
     implementation libs.hilt.core
     kapt libs.hilt.compiler
+
+    implementation libs.appyx
 }
