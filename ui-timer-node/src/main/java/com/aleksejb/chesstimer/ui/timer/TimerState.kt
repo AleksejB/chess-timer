@@ -1,4 +1,4 @@
-package com.aleksejb.ui.timer
+package com.aleksejb.chesstimer.ui.timer
 
 import com.aleksejb.domain.core.timer.model.GameType
 import com.aleksejb.domain.core.timer.model.gameformat.RapidFormat
