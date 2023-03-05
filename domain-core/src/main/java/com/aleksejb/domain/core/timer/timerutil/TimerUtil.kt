@@ -1,14 +1,14 @@
 package com.aleksejb.domain.core.timer.timerutil
 
-import com.aleksejb.domain.core.timer.constants.InitialTimeConstants.FIFTEEN_MIN_IN_MILLIS
-import com.aleksejb.domain.core.timer.constants.InitialTimeConstants.FIVE_MIN_IN_MILLIS
-import com.aleksejb.domain.core.timer.constants.InitialTimeConstants.ONE_MIN_IN_MILLIS
-import com.aleksejb.domain.core.timer.constants.InitialTimeConstants.SIXTY_MIN_IN_MILLIS
-import com.aleksejb.domain.core.timer.constants.InitialTimeConstants.TEN_MIN_IN_MILLIS
-import com.aleksejb.domain.core.timer.constants.InitialTimeConstants.THIRTY_MIN_IN_MILLIS
-import com.aleksejb.domain.core.timer.constants.InitialTimeConstants.THREE_MIN_IN_MILLIS
-import com.aleksejb.domain.core.timer.constants.InitialTimeConstants.TWENTY_MIN_IN_MILLIS
-import com.aleksejb.domain.core.timer.constants.InitialTimeConstants.TWO_MIN_IN_MILLIS
+import com.aleksejb.domain.core.timer.constants.Constants.FIFTEEN_MIN_IN_MILLIS
+import com.aleksejb.domain.core.timer.constants.Constants.FIVE_MIN_IN_MILLIS
+import com.aleksejb.domain.core.timer.constants.Constants.ONE_MIN_IN_MILLIS
+import com.aleksejb.domain.core.timer.constants.Constants.SIXTY_MIN_IN_MILLIS
+import com.aleksejb.domain.core.timer.constants.Constants.TEN_MIN_IN_MILLIS
+import com.aleksejb.domain.core.timer.constants.Constants.THIRTY_MIN_IN_MILLIS
+import com.aleksejb.domain.core.timer.constants.Constants.THREE_MIN_IN_MILLIS
+import com.aleksejb.domain.core.timer.constants.Constants.TWENTY_MIN_IN_MILLIS
+import com.aleksejb.domain.core.timer.constants.Constants.TWO_MIN_IN_MILLIS
 import com.aleksejb.domain.core.timer.model.GameType
 import com.aleksejb.domain.core.timer.model.gameformat.BlitzFormat
 import com.aleksejb.domain.core.timer.model.gameformat.BulletFormat

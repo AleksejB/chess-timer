@@ -25,7 +25,7 @@ class MainActivity : NodeActivity() {
                     integrationPoint = appyxIntegrationPoint
                 ) {
                     Log.d("TAAAG", "NodeHost")
-                    MainRootNode(it)
+                    MainRootNode(buildContext = it)
                 }
             }
         }

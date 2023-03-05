@@ -1,6 +1,6 @@
 package com.aleksejb.domain.core.timer.constants
 
-object InitialTimeConstants {
+object Constants {
     const val SIXTY_MIN_IN_MILLIS = 3600000L
     const val THIRTY_MIN_IN_MILLIS = 1800000L
     const val TWENTY_MIN_IN_MILLIS = 1200000L
@@ -10,4 +10,7 @@ object InitialTimeConstants {
     const val THREE_MIN_IN_MILLIS = 180000L
     const val TWO_MIN_IN_MILLIS = 120000L
     const val ONE_MIN_IN_MILLIS = 60000L
+
+    const val ONE_HOUR_IN_MILLIS = 3600000L
+    const val ONE_SEC_IN_MILLIS = 1000L
 }
