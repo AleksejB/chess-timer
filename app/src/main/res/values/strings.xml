@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ChessTimer</string>
+    <string name="timer">%s</string>
 </resources>
