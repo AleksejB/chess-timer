@@ -1,4 +1,4 @@
-package com.aleksejb.domain.core.timer.timerutil
+package com.aleksejb.domain.core.timer.util
 
 import com.aleksejb.domain.core.timer.constants.Constants.FIFTEEN_MIN_IN_MILLIS
 import com.aleksejb.domain.core.timer.constants.Constants.FIVE_MIN_IN_MILLIS

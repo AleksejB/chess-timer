@@ -1,6 +1,5 @@
 package com.aleksejb.chesstimer.ui.timer
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -59,6 +58,14 @@ private fun TimerScreenContent(
             textAlign = TextAlign.Center
         )
 
+        Text(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { eventHandler(TimerEvent.OnPausePlayClicked) },
+            text = if (state.gameInProgress) "Pause" else "Play",
+            textAlign = TextAlign.Center
+        )
+
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.SpaceEvenly,
@@ -70,13 +77,7 @@ private fun TimerScreenContent(
                 seconds = state.whiteTime.seconds,
                 isWhite = true,
                 isTicking = state.isWhiteTimeTicking
-            ) {
-                if (state.gameStarted) {
-                    eventHandler(TimerEvent.OnWhiteTimerClicked)
-                } else {
-                    eventHandler(TimerEvent.OnGameStarted)
-                }
-            }
+            ) { if (state.gameInProgress) eventHandler(TimerEvent.OnWhiteTimerClicked) }
 
             Timer(
                 hours = state.blackTime.hours,
@@ -84,7 +85,7 @@ private fun TimerScreenContent(
                 seconds = state.blackTime.seconds,
                 isWhite = false,
                 isTicking = state.isBlackTimeTicking
-            ) { eventHandler(TimerEvent.OnBlackTimerClicked) }
+            ) { if (state.gameInProgress) eventHandler(TimerEvent.OnBlackTimerClicked) }
         }
     }
 }

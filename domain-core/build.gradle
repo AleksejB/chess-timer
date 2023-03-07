@@ -35,3 +35,8 @@ android {
 dependencies {
     implementation libs.bundles.androidx
 }
+
+repositories {
+    google()
+    mavenCentral()
+}

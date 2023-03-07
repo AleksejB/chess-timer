@@ -54,3 +54,8 @@ dependencies {
 
     implementation libs.appyx
 }
+
+repositories {
+    google()
+    mavenCentral()
+}

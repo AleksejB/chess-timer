@@ -2,26 +2,24 @@ package com.aleksejb.chesstimer.ui.timer
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
-import com.aleksejb.chesstimer.ui.timer.TimerEffect
-import com.aleksejb.chesstimer.ui.timer.TimerEvent
-import com.aleksejb.chesstimer.ui.timer.TimerState
-import com.aleksejb.domain.core.timer.model.GameType
+import com.aleksejb.chesstimer.domain.services.usecase.GetSessionUseCase
+import com.aleksejb.chesstimer.domain.services.usecase.SaveSessionUseCase
+import com.aleksejb.domain.core.timer.model.PlayerColor
+import com.aleksejb.domain.core.timer.model.TimerTime
 import com.aleksejb.domain.core.timer.model.gameformat.RapidFormat
-import com.aleksejb.domain.core.timer.timerutil.getInitialTime
-import com.aleksejb.domain.core.timer.timerutil.toTimerTime
+import com.aleksejb.domain.core.timer.util.getInitialTime
+import com.aleksejb.domain.core.timer.util.toTimerTime
 import com.aleksejb.ui.core.viewmodel.MVIViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import java.util.Timer
-import java.util.TimerTask
 import javax.inject.Inject
-import kotlin.concurrent.timer
 
 @HiltViewModel
 class TimerViewModel @Inject constructor(
-
+    private val saveSessionUseCase: SaveSessionUseCase,
+    private val getSessionUseCase: GetSessionUseCase
 ): MVIViewModel<TimerState, TimerEvent, TimerEffect>() {
 
     override val _state = MutableStateFlow<TimerState>(TimerState.Initial)
@@ -43,6 +41,7 @@ class TimerViewModel @Inject constructor(
         viewModelScope.launch {
             whiteTimer.collect {
                 if (state.value.isWhiteTimeTicking) {
+                    if (whiteTimeLong == 0L) return@collect
                     whiteTimeLong -= 1000L
                     updateState { copy(whiteTime = whiteTimeLong.toTimerTime()) }
                 }
@@ -52,55 +51,105 @@ class TimerViewModel @Inject constructor(
         viewModelScope.launch {
             blackTimer.collect {
                 if (state.value.isBlackTimeTicking) {
+                    if (blackTimeLong == 0L) return@collect
                     blackTimeLong -= 1000L
                     updateState { copy(blackTime = blackTimeLong.toTimerTime()) }
                 }
             }
+        }
+
+        viewModelScope.launch {
+            val session = getSessionUseCase.invoke()
+            blackTimeLong = session?.blackTime ?: RapidFormat.TEN.getInitialTime()
+            whiteTimeLong = session?.whiteTime ?: RapidFormat.TEN.getInitialTime()
+
+            updateState { copy(
+                blackTime = blackTimeLong.toTimerTime(),
+                whiteTime = whiteTimeLong.toTimerTime(),
+                lastMovedBy = session?.lastMoveBy ?: PlayerColor.NONE,
+                gameInProgress = false
+            ) }
         }
     }
 
     override fun handleEvent(event: TimerEvent) {
         when (event) {
             is TimerEvent.OnWhiteTimerClicked -> {
-                Log.d("TAAAG", "before state update")
-                Log.d("TAAAG", "isWhiteTicking: ${state.value.isWhiteTimeTicking}")
-                Log.d("TAAAG", "isBlackTicking: ${state.value.isBlackTimeTicking}")
                 updateState { copy(
                     isWhiteTimeTicking = !state.value.isWhiteTimeTicking,
-                    isBlackTimeTicking = !state.value.isBlackTimeTicking
+                    isBlackTimeTicking = !state.value.isBlackTimeTicking,
+                    lastMovedBy = PlayerColor.WHITE
                 ) }
-                Log.d("TAAAG", "after state update")
-                Log.d("TAAAG", "isWhiteTicking: ${state.value.isWhiteTimeTicking}")
-                Log.d("TAAAG", "isBlackTicking: ${state.value.isBlackTimeTicking}")
             }
             is TimerEvent.OnBlackTimerClicked -> {
-                Log.d("TAAAG", "before state update")
-                Log.d("TAAAG", "isWhiteTicking: ${state.value.isWhiteTimeTicking}")
-                Log.d("TAAAG", "isBlackTicking: ${state.value.isBlackTimeTicking}")
                 updateState { copy(
                     isWhiteTimeTicking = !state.value.isWhiteTimeTicking,
-                    isBlackTimeTicking = !state.value.isBlackTimeTicking
+                    isBlackTimeTicking = !state.value.isBlackTimeTicking,
+                    lastMovedBy = PlayerColor.BLACK
                 ) }
-                Log.d("TAAAG", "after state update")
-                Log.d("TAAAG", "isWhiteTicking: ${state.value.isWhiteTimeTicking}")
-                Log.d("TAAAG", "isBlackTicking: ${state.value.isBlackTimeTicking}")
             }
             is TimerEvent.OnResetClicked -> {
                 whiteTimeLong = RapidFormat.TEN.getInitialTime()
                 blackTimeLong = RapidFormat.TEN.getInitialTime()
                 updateState { copy(
-                    gameStarted = false,
+                    gameInProgress = false,
                     isWhiteTimeTicking = false,
                     isBlackTimeTicking = false,
                     whiteTime = whiteTimeLong.toTimerTime(),
-                    blackTime = blackTimeLong.toTimerTime()
+                    blackTime = blackTimeLong.toTimerTime(),
+                    lastMovedBy = PlayerColor.NONE
                 ) }
             }
             is TimerEvent.OnGameStarted -> updateState { copy(
-                gameStarted = true,
+                gameInProgress = true,
                 isWhiteTimeTicking = true
             ) }
+            is TimerEvent.OnPausePlayClicked -> {
+                updateState {
+                    if (state.value.gameInProgress) {
+                        copy(
+                            gameInProgress = false,
+                            isWhiteTimeTicking = false,
+                            isBlackTimeTicking = false
+                        )
+                    } else {
+                        when (state.value.lastMovedBy) {
+                            PlayerColor.NONE -> {
+                                copy(
+                                    gameInProgress = true,
+                                    isWhiteTimeTicking = true,
+                                    isBlackTimeTicking = false
+                                )
+                            }
+                            PlayerColor.WHITE -> {
+                                copy(
+                                    gameInProgress = true,
+                                    isWhiteTimeTicking = true,
+                                    isBlackTimeTicking = false
+                                )
+                            }
+                            PlayerColor.BLACK -> {
+                                copy(
+                                    gameInProgress = true,
+                                    isWhiteTimeTicking = false,
+                                    isBlackTimeTicking = true
+                                )
+                            }
+                        }
+                    }
+                }
+                saveSession()
+            }
         }
     }
 
+    private fun saveSession() {
+        viewModelScope.launch {
+            saveSessionUseCase.invoke(
+                newBlackTime = blackTimeLong,
+                newWhiteTime = whiteTimeLong,
+                newLastMoveBy = state.value.lastMovedBy
+            )
+        }
+    }
 }

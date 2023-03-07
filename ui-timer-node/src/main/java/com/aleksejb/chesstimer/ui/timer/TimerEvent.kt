@@ -6,4 +6,5 @@ sealed interface TimerEvent {
     object OnWhiteTimerClicked: TimerEvent
     object OnBlackTimerClicked: TimerEvent
     object OnResetClicked: TimerEvent
+    object OnPausePlayClicked: TimerEvent
 }

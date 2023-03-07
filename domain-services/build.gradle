@@ -38,9 +38,15 @@ android {
 
 dependencies {
     implementation project(':domain-core')
+    implementation project(':data-core')
     implementation libs.bundles.androidx
 
     implementation libs.hilt.integrations.compose
     implementation libs.hilt.core
     kapt libs.hilt.compiler
+}
+
+repositories {
+    google()
+    mavenCentral()
 }

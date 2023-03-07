@@ -44,6 +44,7 @@ dependencies {
     implementation project(':domain-services')
     implementation project(':ui-core')
     implementation project(':domain-core')
+    implementation project(':data-core')
 
     implementation libs.bundles.androidx
     implementation libs.bundles.compose.ui
@@ -56,4 +57,9 @@ dependencies {
     implementation libs.appyx
 
     implementation libs.appyx
+}
+
+repositories {
+    google()
+    mavenCentral()
 }

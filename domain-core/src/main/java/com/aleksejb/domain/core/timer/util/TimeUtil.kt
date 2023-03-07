@@ -1,4 +1,4 @@
-package com.aleksejb.domain.core.timer.timerutil
+package com.aleksejb.domain.core.timer.util
 
 import com.aleksejb.domain.core.timer.constants.Constants
 import com.aleksejb.domain.core.timer.model.TimerTime

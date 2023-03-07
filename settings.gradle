@@ -8,13 +8,13 @@ pluginManagement {
 
 enableFeaturePreview("VERSION_CATALOGS")
 
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
+//dependencyResolutionManagement {
+//    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+//    repositories {
+//        google()
+//        mavenCentral()
+//    }
+//}
 rootProject.name = "ChessTimer"
 include ':app'
 include ':data-core'

@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.plugin.kotlin.android)
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
+    id 'realm-android'
 }
 
 android {
@@ -36,10 +37,16 @@ android {
 }
 
 dependencies {
+    implementation project(':domain-core')
 
     implementation libs.bundles.androidx
 
     implementation libs.hilt.integrations.compose
     implementation libs.hilt.core
     kapt libs.hilt.compiler
+}
+
+repositories {
+    google()
+    mavenCentral()
 }
